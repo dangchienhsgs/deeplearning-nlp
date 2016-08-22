@@ -1,0 +1,84 @@
+<csv>	parsing file: pre-processing/train_data/good_train_matrix_file.txt	
+<csv>	parsing done	
+<csv>	parsing file: pre-processing/train_data/good_train_label_file.txt	
+<csv>	parsing done	
+window_size = 11, training_size = 11456	
+<csv>	parsing file: pre-processing/train_data/good_test_matrix_file.txt	
+<csv>	parsing done	
+<csv>	parsing file: pre-processing/train_data/good_test_label_file.txt	
+<csv>	parsing done	
+window_size = 11, testing_size = 333446	
+<csv>	parsing file: pre-processing/train_data/total_matrix_final.txt	
+<csv>	parsing done	
+<csv>	parsing file: pre-processing/train_data/total_words_final.txt	
+<csv>	parsing done	
+Size {rows=16458, cols=200}	
+Number of total words = 16458	
+Generate new tensor at size 16458 x 200	
+  11
+ 200
+[torch.LongStorage of size 2]
+
+nn.Sequential {
+  [input -> (1) -> (2) -> (3) -> (4) -> (5) -> (6) -> output]
+  (1): nn.LookupTable
+  (2): nn.Reshape(2200)
+  (3): nn.Linear(2200 -> 100)
+  (4): nn.HardTanh
+  (5): nn.Linear(100 -> 11)
+  (6): nn.SoftMax
+}
+11456	
+333446	
+Epoch: 1 Current loss: -0.096595	
+Accuracy on the validation set: 0.078259	
+Count label 1 number of true=21311, number of false=297615, accuracy=0.066821	
+Count label 2 number of true=22, number of false=1883, accuracy=0.011549	
+Count label 3 number of true=833, number of false=1155, accuracy=0.419014	
+Count label 4 number of true=3525, number of false=2913, accuracy=0.547530	
+Count label 5 number of true=0, number of false=12, accuracy=0.000000	
+Count label 6 number of true=241, number of false=2502, accuracy=0.087860	
+Count label 7 number of true=1, number of false=21, accuracy=0.045455	
+Count label 8 number of true=0, number of false=2, accuracy=0.000000	
+Count label 9 number of true=3, number of false=106, accuracy=0.027523	
+Count label 10 number of true=149, number of false=830, accuracy=0.152196	
+Count label 11 number of true=10, number of false=312, accuracy=0.031056	
+Epoch: 2 Current loss: -0.109002	
+Accuracy on the validation set: 0.064877	
+Count label 1 number of true=16464, number of false=302462, accuracy=0.051623	
+Count label 2 number of true=46, number of false=1859, accuracy=0.024147	
+Count label 3 number of true=1184, number of false=804, accuracy=0.595573	
+Count label 4 number of true=3373, number of false=3065, accuracy=0.523920	
+Count label 5 number of true=0, number of false=12, accuracy=0.000000	
+Count label 6 number of true=240, number of false=2503, accuracy=0.087495	
+Count label 7 number of true=0, number of false=22, accuracy=0.000000	
+Count label 8 number of true=0, number of false=2, accuracy=0.000000	
+Count label 9 number of true=0, number of false=109, accuracy=0.000000	
+Count label 10 number of true=293, number of false=686, accuracy=0.299285	
+Count label 11 number of true=33, number of false=289, accuracy=0.102484	
+Epoch: 3 Current loss: -0.121439	
+Accuracy on the validation set: 0.057644	
+Count label 1 number of true=14068, number of false=304858, accuracy=0.044111	
+Count label 2 number of true=124, number of false=1781, accuracy=0.065092	
+Count label 3 number of true=1350, number of false=638, accuracy=0.679074	
+Count label 4 number of true=3022, number of false=3416, accuracy=0.469400	
+Count label 5 number of true=0, number of false=12, accuracy=0.000000	
+Count label 6 number of true=264, number of false=2479, accuracy=0.096245	
+Count label 7 number of true=0, number of false=22, accuracy=0.000000	
+Count label 8 number of true=0, number of false=2, accuracy=0.000000	
+Count label 9 number of true=0, number of false=109, accuracy=0.000000	
+Count label 10 number of true=346, number of false=633, accuracy=0.353422	
+Count label 11 number of true=47, number of false=275, accuracy=0.145963	
+Epoch: 4 Current loss: -0.129873	
+Accuracy on the validation set: 0.051984	
+Count label 1 number of true=12138, number of false=306788, accuracy=0.038059	
+Count label 2 number of true=188, number of false=1717, accuracy=0.098688	
+Count label 3 number of true=1446, number of false=542, accuracy=0.727364	
+Count label 4 number of true=2827, number of false=3611, accuracy=0.439112	
+Count label 5 number of true=0, number of false=12, accuracy=0.000000	
+Count label 6 number of true=290, number of false=2453, accuracy=0.105724	
+Count label 7 number of true=0, number of false=22, accuracy=0.000000	
+Count label 8 number of true=0, number of false=2, accuracy=0.000000	
+Count label 9 number of true=0, number of false=109, accuracy=0.000000	
+Count label 10 number of true=375, number of false=604, accuracy=0.383044	
+Count label 11 number of true=70, number of false=252, accuracy=0.217391	

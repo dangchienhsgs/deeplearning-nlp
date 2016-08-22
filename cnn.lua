@@ -7,7 +7,7 @@ require 'torch'
 
 
 -- load trainning_size
-matrix_words = csvigo.load{path='pre-processing/train_data/good_train_matrix_file.txt', mode='large', separator=' '}
+matrix_words = csvigo.load{path='pre-processing/train_data/full_train_matrix_file.txt', mode='large', separator=' '}
 classes = {"O", "B-LOC", "B-PER", "B-ORG", "B-TOUR", "I-ORG", "I-PER", "I-TOUR", "I-LOC", "B-PRO", "I-PRO"}
 
 windowSize = #matrix_words[1]
@@ -22,7 +22,7 @@ end
 
 
 -- read labels
-labelsRaw = csvigo.load{path='pre-processing/train_data/good_train_label_file.txt', mode='large', separator=' '}
+labelsRaw = csvigo.load{path='pre-processing/train_data/full_train_label_file.txt', mode='large', separator=' '}
 labels = torch.DoubleTensor(#labelsRaw)
 for i=1, #labelsRaw do    
     labels[i] = tonumber(labelsRaw[i][1]) + 1
@@ -33,7 +33,7 @@ print(string.format("window_size = %d, training_size = %d", windowSize, training
 
 
 -- load test_data -- 
-matrix_words_test = csvigo.load{path='pre-processing/train_data/good_test_matrix_file.txt', mode='large', separator=' '}
+matrix_words_test = csvigo.load{path='pre-processing/train_data/full_test_matrix_file.txt', mode='large', separator=' '}
 testingSize = #matrix_words_test
 
 data_test = torch.Tensor(testingSize, windowSize)
@@ -45,7 +45,7 @@ end
 
 
 -- read labels -- 
-labelsRawTest = csvigo.load{path='pre-processing/train_data/good_test_label_file.txt', mode='large', separator=' '}
+labelsRawTest = csvigo.load{path='pre-processing/train_data/full_test_label_file.txt', mode='large', separator=' '}
 labels_test = torch.DoubleTensor(#labelsRawTest)
 for i=1, #labelsRawTest do    
      labels_test[i] = tonumber(labelsRawTest[i][1]) + 1
@@ -98,13 +98,30 @@ model:add(nn.Reshape(K*windowSize))
 model:add(nn.Linear(K*windowSize, L))
 model:add(nn.HardTanh())
 model:add(nn.Linear(L, #classes))
-model:add(nn.SoftMax())
+model:add(nn.LogSoftMax())
 
 print(model)
 
 
+-- generate weight for criterion --
+weight = torch.Tensor(#classes)
+for i=1, #classes do 
+    weight[i] = 0
+end
 
-criterion = nn.ClassNLLCriterion()
+for i=1, labels:size()[1] do    
+    weight[labels[i]] = weight[labels[i]] + 1
+end
+
+for i=1, #classes do
+    weight[i] = labels:size()[1] / weight[i]
+end
+
+print(weight)
+
+
+
+criterion = nn.ClassNLLCriterion(weight)
 x, dl_dx = model:getParameters()
 
 sgd_params = {

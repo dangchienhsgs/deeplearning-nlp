@@ -182,6 +182,12 @@ end
 
 print(testingSize)
 eval = function(batch_size)
+    -- Opens a file in append mode
+    file = io.open("result_test.csv", "w")
+    
+    -- sets the default output file as test.lua
+    io.output(file)
+    
     local count = 0
     batch_size = batch_size or 200        
     
@@ -207,6 +213,8 @@ eval = function(batch_size)
         
         guessed_right = 0                
         for j=1, indices:size()[1] do
+            io.write(indices[j][1])
+            io.write("\n")
             label = targets[j]    
             if indices[j][1] == targets[j] then
                 guessed_right = guessed_right + 1                             
@@ -218,11 +226,14 @@ eval = function(batch_size)
         
         count = count + guessed_right                    
     end
+        
+    -- closes the open file
+    io.close(file)
     
     return count/testingSize, true_prob, false_prob
 end
 
-max_iters = 5
+max_iters = 30
 do
     local last_accuracy = 0
     local decreasing = 0

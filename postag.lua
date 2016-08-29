@@ -182,10 +182,9 @@ step = function(batch_size)
     return current_loss / count
 end
 
-print(testingSize)
 eval = function(batch_size)
     -- Opens a file in append mode
-    file = io.open("postag_result_test.csv", "w")
+    file = io.open("result_test.csv", "w")
     
     -- sets the default output file as test.lua
     io.output(file)
@@ -235,15 +234,15 @@ eval = function(batch_size)
     return count/testingSize, true_prob, false_prob
 end
 
-max_iters = 30
+max_iters = 300
 do
     local last_accuracy = 0
     local decreasing = 0
     local threshold = 1 -- how many deacreasing epochs we allow
     for iter = 1, max_iters do
-        local loss = step(20)        
+        local loss = step(200)        
         print(string.format('Epoch: %d Current loss: %4f', iter, loss))
-        local accuracy, true_prob, false_prob = eval(20)        
+        local accuracy, true_prob, false_prob = eval(200)        
         print(string.format('Accuracy on the validation set: %4f', accuracy))
         for x, y in pairs(true_prob) do
             print(string.format('Count label %d number of true=%d, number of false=%d, accuracy=%4f', x, y, false_prob[x], y/(y+false_prob[x])))

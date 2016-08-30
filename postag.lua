@@ -187,7 +187,7 @@ eval = function(batch_size)
     file = io.open("result_test.csv", "w")
     
     -- sets the default output file as test.lua
-    io.output(file)
+    --io.output(file)
     
     local count = 0
     batch_size = batch_size or 200        
@@ -205,7 +205,7 @@ eval = function(batch_size)
         if i >= testingSize then
             break
         end
-        
+	
         local size = math.min(i + batch_size, testingSize) - i        
         local inputs = data_test[{{i+1,i+size}}]
         local targets = labels_test[{{i+1,i+size}}]:long()
@@ -213,10 +213,12 @@ eval = function(batch_size)
         local _, indices = torch.max(outputs, 2)                
         
         guessed_right = 0                
+	
         for j=1, indices:size()[1] do
-            io.write(indices[j][1])
-            io.write("\n")
+            file:write(indices[j][1])
+            file:write("\n")
             label = targets[j]    
+
             if indices[j][1] == targets[j] then
                 guessed_right = guessed_right + 1                             
                 true_prob[label] = true_prob[label] + 1
@@ -229,7 +231,8 @@ eval = function(batch_size)
     end
         
     -- closes the open file
-    io.close(file)
+    --    io.close(file)
+    file.close()
     
     return count/testingSize, true_prob, false_prob
 end
@@ -243,6 +246,7 @@ do
         local loss = step(200)        
         print(string.format('Epoch: %d Current loss: %4f', iter, loss))
         local accuracy, true_prob, false_prob = eval(200)        
+--	print(accuracy)
         print(string.format('Accuracy on the validation set: %4f', accuracy))
         for x, y in pairs(true_prob) do
             print(string.format('Count label %d number of true=%d, number of false=%d, accuracy=%4f', x, y, false_prob[x], y/(y+false_prob[x])))
